@@ -1,0 +1,51 @@
+<div class="container">
+    <button class="btn btn-success" routerLink="/create">Crear Registro</button>
+    <hr/>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>CI</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="message_tr" *ngIf="!loading && !error && loadedRecords && loadedRecords.length < 1">
+                <td colspan="5">No hay registros cargados.</td>
+            </tr>
+            <tr *ngFor="let user of loadedRecords">
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.ci}}</td>
+                <td>{{user.email}}</td>
+                <td>
+                    <button class="btn btn-success" [routerLink]="'/update/'+user.id">Editar</button>
+                    <!--
+                        <button class="btn btn-danger">Eliminar</button>
+                    -->
+                </td>
+            </tr>
+            <tr class="message_tr" *ngIf="error">
+                <td colspan="5">Hubo un problema cargando los registros.</td>
+            </tr>
+            <tr class="message_tr" *ngIf="loading">
+                <td colspan="5">Cargando...</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="backward-td">
+                    <button class="btn btn-info" (click)="backwards()">Retroceder</button>
+                </td>
+                <td colspan="3" class="paging-number-td">
+                    {{(skip)}} - {{skip+limit}}
+                </td>
+                <td class="forward-td">
+                    <button class="btn btn-info" (click)="forward()">Avanzar</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
